@@ -2,7 +2,6 @@ package de.assecor.assessment.backend.repository;
 
 import de.assecor.assessment.backend.entity.PersonEntity;
 import de.assecor.assessment.backend.model.Color;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

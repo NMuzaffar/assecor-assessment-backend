@@ -3,6 +3,7 @@ package de.assecor.assessment.backend.repository.jpa;
 import de.assecor.assessment.backend.entity.PersonEntity;
 import de.assecor.assessment.backend.model.Color;
 import de.assecor.assessment.backend.repository.PersonRepository;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +17,11 @@ public class JpaPersonRepositoryAdapter implements PersonRepository {
 
   public JpaPersonRepositoryAdapter(JpaPersonRepository jpaRepository) {
     this.jpaRepository = jpaRepository;
+  }
+
+  @Override
+  public List<PersonEntity> loadPersons() {
+    return Collections.emptyList();
   }
 
   @Override

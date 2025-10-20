@@ -20,10 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 @Primary
+@Profile("!jpa")
 @Repository
 @Slf4j
 public class CsvPersonRepository implements PersonRepository, InitializingBean {
@@ -102,7 +104,7 @@ public class CsvPersonRepository implements PersonRepository, InitializingBean {
   @Override
   public PersonEntity save(PersonEntity entity) {
     if (entity.getId() == null) {
-      entity.setId(idGenerator.getAndIncrement());
+      entity.setId(idGenerator.incrementAndGet());
       entity.setCreatedAt(LocalDateTime.now());
     }
     if (entity.getCreatedAt() == null) {

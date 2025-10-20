@@ -14,8 +14,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler({PersonNotFoundException.class, ColorNotFoundException.class})
-  public ResponseEntity<ErrorResponse> handleNotFoundExceptions(Exception ex) {
+  @ExceptionHandler(PersonNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handlePersonNotFoundException(PersonNotFoundException ex) {
+    ErrorResponse errorResponse =
+        ErrorResponse.builder()
+            .timestamp(Instant.now())
+            .status(HttpStatus.NOT_FOUND.value())
+            .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+            .message(ex.getMessage())
+            .build();
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+  }
+
+  @ExceptionHandler(ColorNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleColorNotFoundException(ColorNotFoundException ex) {
     ErrorResponse errorResponse =
         ErrorResponse.builder()
             .timestamp(Instant.now())
@@ -57,17 +69,5 @@ public class GlobalExceptionHandler {
             .errors(errors)
             .build();
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-  }
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-    ErrorResponse errorResponse =
-        ErrorResponse.builder()
-            .timestamp(Instant.now())
-            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-            .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-            .message("An unexpected error occurred")
-            .build();
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
   }
 }
