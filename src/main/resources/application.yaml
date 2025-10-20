@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: assecor-assessment-backend
+
+server:
+  port: 8080
+

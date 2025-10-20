@@ -4,4 +4,7 @@ import de.assecor.assessment.backend.service.PersonService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PersonServiceImpl implements PersonService {}
+public class PersonServiceImpl implements PersonService {
+
+
+}
