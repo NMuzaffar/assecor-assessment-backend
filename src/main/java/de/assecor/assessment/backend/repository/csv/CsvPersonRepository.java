@@ -5,8 +5,8 @@ import com.opencsv.exceptions.CsvException;
 import de.assecor.assessment.backend.entity.PersonEntity;
 import de.assecor.assessment.backend.model.Color;
 import de.assecor.assessment.backend.repository.PersonRepository;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class CsvPersonRepository implements PersonRepository, InitializingBean {
 
   @Override
   public List<PersonEntity> loadPersons() {
-    try (CSVReader reader = new CSVReader(new FileReader(csvDatasource.getFile()))) {
+    try (CSVReader reader = new CSVReader(new InputStreamReader(csvDatasource.getInputStream()))) {
       final List<PersonEntity> persons = new ArrayList<>();
       List<String[]> records = reader.readAll();
       for (int i = 0; i < records.size(); i++) {
